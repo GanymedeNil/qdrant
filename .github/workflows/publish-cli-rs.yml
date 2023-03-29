@@ -4,7 +4,7 @@
 
 name: publish cli.rs
 env:
-  MACOSX_DEPLOYMENT_TARGET: '10.13'
+  MACOSX_DEPLOYMENT_TARGET: '11'
 on:
   workflow_dispatch:
   push:
@@ -18,10 +18,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - os: macos-latest
+          - os: macos-11
             rust_target: x86_64-apple-darwin
             ext: ''
-          - os: macos-latest
+          - os: macos-11
             rust_target: aarch64-apple-darwin
             ext: ''
           - os: windows-latest
@@ -42,11 +42,9 @@ jobs:
           key: ${{ matrix.config.rust_target }}
 
       - name: install MacOS dependencies
-        if: matrix.config.os == 'macos-latest'
+        if: matrix.config.os == 'macos-11'
         run: |
           brew install protobuf
-          brew install gcc@7
-          brew install rocksdb
           
       - name: install Windows dependencies
         if: matrix.config.os == 'windows-latest'
