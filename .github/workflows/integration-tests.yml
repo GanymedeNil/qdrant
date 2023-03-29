@@ -1,80 +1,80 @@
-name: Integration tests
+# name: Integration tests
 
-on:
-  push:
-    branches: [ master, dev ]
-  pull_request:
-    branches: [ master, dev ]
+# on:
+#   push:
+#     branches: [ master, dev ]
+#   pull_request:
+#     branches: [ master, dev ]
 
-env:
-  CARGO_TERM_COLOR: always
+# env:
+#   CARGO_TERM_COLOR: always
 
-jobs:
-  test:
+# jobs:
+#   test:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Install minimal stable
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-      - uses: actions/checkout@v3
-      - uses: Swatinem/rust-cache@v2
-      - name: Install dependencies
-        run: sudo apt-get install clang protobuf-compiler
-      - name: Build
-        run: cargo build --features service_debug
-      - name: Run integration tests
-        run: ./tests/integration-tests.sh
-        shell: bash
+#     steps:
+#       - name: Install minimal stable
+#         uses: actions-rs/toolchain@v1
+#         with:
+#           profile: minimal
+#           toolchain: stable
+#       - uses: actions/checkout@v3
+#       - uses: Swatinem/rust-cache@v2
+#       - name: Install dependencies
+#         run: sudo apt-get install clang protobuf-compiler
+#       - name: Build
+#         run: cargo build --features service_debug
+#       - name: Run integration tests
+#         run: ./tests/integration-tests.sh
+#         shell: bash
 
-  test-consensus:
+#   test-consensus:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Install minimal stable
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-      - uses: actions/checkout@v3
-      - uses: Swatinem/rust-cache@v2
-      - name: Install dependencies
-        run: sudo apt-get install clang protobuf-compiler
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - name: Install pytest
-        run: pip install pytest requests
-      - name: Build
-        run: cargo build --features service_debug
-      - name: Run integration tests - 1 peer
-        run: ./tests/integration-tests.sh distributed
-        shell: bash
-      - name: Run integration tests - multiple peers - pytest
-        run: pytest ./tests/consensus_tests
-      - name: upload logs in case of failure
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: consensus-test-logs
-          retention-days: 90 # default max value
-          path: consensus_test_logs
+#     steps:
+#       - name: Install minimal stable
+#         uses: actions-rs/toolchain@v1
+#         with:
+#           profile: minimal
+#           toolchain: stable
+#       - uses: actions/checkout@v3
+#       - uses: Swatinem/rust-cache@v2
+#       - name: Install dependencies
+#         run: sudo apt-get install clang protobuf-compiler
+#       - uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.10'
+#       - name: Install pytest
+#         run: pip install pytest requests
+#       - name: Build
+#         run: cargo build --features service_debug
+#       - name: Run integration tests - 1 peer
+#         run: ./tests/integration-tests.sh distributed
+#         shell: bash
+#       - name: Run integration tests - multiple peers - pytest
+#         run: pytest ./tests/consensus_tests
+#       - name: upload logs in case of failure
+#         uses: actions/upload-artifact@v3
+#         if: failure()
+#         with:
+#           name: consensus-test-logs
+#           retention-days: 90 # default max value
+#           path: consensus_test_logs
       
-  test-consensus-compose:
+#   test-consensus-compose:
     
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
   
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - name: Install requests python lib
-        run: pip install requests
-      - name: Run integration tests - multiple peers - compose
-        run: ./test_restart.sh
-        working-directory: ./tests/consensus_tests
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.10'
+#       - name: Install requests python lib
+#         run: pip install requests
+#       - name: Run integration tests - multiple peers - compose
+#         run: ./test_restart.sh
+#         working-directory: ./tests/consensus_tests

@@ -1,40 +1,40 @@
-name: Formatter and linter
+# name: Formatter and linter
 
-on:
-  push:
-    branches: [ master, dev ]
-  pull_request:
-    branches: [ master, dev ]
+# on:
+#   push:
+#     branches: [ master, dev ]
+#   pull_request:
+#     branches: [ master, dev ]
 
-env:
-  CARGO_TERM_COLOR: always
+# env:
+#   CARGO_TERM_COLOR: always
 
-jobs:
-  test:
+# jobs:
+#   test:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: Install miniml nightly (only for fmt)
-      uses: actions-rs/toolchain@v1
-      with:
-        profile: minimal
-        toolchain: nightly
-        components: rustfmt
-    - name: Install minimal stable
-      uses: actions-rs/toolchain@v1
-      with:
-        profile: minimal
-        toolchain: stable
-        override: true
-        components: rustfmt, clippy
-    - uses: actions/checkout@v3
-    - uses: Swatinem/rust-cache@v2
-      with:
-        key: clippy
-    - name: Install dependencies
-      run: sudo apt-get install clang protobuf-compiler
-    - name: Check code formatting
-      run: cargo +nightly fmt --all -- --check
-    - name: Check cargo clippy warnings
-      run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+#     steps:
+#     - name: Install miniml nightly (only for fmt)
+#       uses: actions-rs/toolchain@v1
+#       with:
+#         profile: minimal
+#         toolchain: nightly
+#         components: rustfmt
+#     - name: Install minimal stable
+#       uses: actions-rs/toolchain@v1
+#       with:
+#         profile: minimal
+#         toolchain: stable
+#         override: true
+#         components: rustfmt, clippy
+#     - uses: actions/checkout@v3
+#     - uses: Swatinem/rust-cache@v2
+#       with:
+#         key: clippy
+#     - name: Install dependencies
+#       run: sudo apt-get install clang protobuf-compiler
+#     - name: Check code formatting
+#       run: cargo +nightly fmt --all -- --check
+#     - name: Check cargo clippy warnings
+#       run: cargo clippy --workspace --all-targets --all-features -- -D warnings

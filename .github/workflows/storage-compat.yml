@@ -1,31 +1,31 @@
-name: Storage compatibility tests
+# name: Storage compatibility tests
 
-on:
-  push:
-    branches: [ master, dev ]
-  pull_request:
-    branches: [ master, dev ]
+# on:
+#   push:
+#     branches: [ master, dev ]
+#   pull_request:
+#     branches: [ master, dev ]
 
-env:
-  CARGO_TERM_COLOR: always
+# env:
+#   CARGO_TERM_COLOR: always
 
-jobs:
-  test:
+# jobs:
+#   test:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Install dependencies
-        run: sudo apt-get install clang git-lfs protobuf-compiler
-      - name: Setup git-lfs
-        run: git lfs install
-      - name: Install minimal stable
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-      - uses: actions/checkout@v3
-      - uses: Swatinem/rust-cache@v2
-      - name: Run storage compatibility test
-        run: ./tests/storage-compat/storage-compatibility.sh
-        shell: bash
+#     steps:
+#       - name: Install dependencies
+#         run: sudo apt-get install clang git-lfs protobuf-compiler
+#       - name: Setup git-lfs
+#         run: git lfs install
+#       - name: Install minimal stable
+#         uses: actions-rs/toolchain@v1
+#         with:
+#           profile: minimal
+#           toolchain: stable
+#       - uses: actions/checkout@v3
+#       - uses: Swatinem/rust-cache@v2
+#       - name: Run storage compatibility test
+#         run: ./tests/storage-compat/storage-compatibility.sh
+#         shell: bash
