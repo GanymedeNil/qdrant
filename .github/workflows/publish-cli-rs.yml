@@ -44,7 +44,7 @@ jobs:
       - name: install MacOS dependencies
         if: matrix.config.os == 'macos-latest'
         run: |
-          brew install protobuf
+          brew install protobuf llvm
           
       - name: install Windows dependencies
         if: matrix.config.os == 'windows-latest'
@@ -84,7 +84,6 @@ jobs:
       - name: Publish release
         uses: softprops/action-gh-release@50195ba7f6f93d1ac97ba8332a178e008ad176aa
         with:
-          tag_name: cli.rs
           files: |
             outputs/qdrant-*.zip
             outputs/qdrant-*.tgz
