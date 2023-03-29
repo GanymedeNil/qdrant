@@ -44,7 +44,7 @@ jobs:
       - name: install MacOS dependencies
         if: matrix.config.os == 'macos-latest'
         run: |
-          xcode-select --install
+          Software Update
           brew tap homebrew/versions
           brew install protobuf
           brew install gcc7 --use-llvm
