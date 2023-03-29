@@ -45,7 +45,7 @@ jobs:
         if: matrix.config.os == 'macos-latest'
         run: |
           brew install protobuf
-          brew install gcc7 --use-llvm
+          brew install gcc7
           brew install rocksdb
           
       - name: install Windows dependencies
