@@ -44,8 +44,11 @@ jobs:
       - name: install MacOS dependencies
         if: matrix.config.os == 'macos-latest'
         run: |
+          xcode-select --install
+          brew tap homebrew/versions
           brew install protobuf
-          brew upgrade llvm
+          brew install gcc7 --use-llvm
+          brew install rocksdb
           
       - name: install Windows dependencies
         if: matrix.config.os == 'windows-latest'
