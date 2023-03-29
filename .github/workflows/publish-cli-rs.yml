@@ -40,6 +40,17 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           key: ${{ matrix.config.rust_target }}
+
+      - name: install MacOS dependencies
+        if: matrix.config.os == 'macos-latest'
+        run: |
+          brew install protobuf
+          
+      - name: install Windows dependencies
+        if: matrix.config.os == 'windows-latest'
+        uses: arduino/setup-protoc@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Build CLI
         uses: actions-rs/cargo@v1
