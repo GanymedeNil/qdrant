@@ -7,8 +7,8 @@ env:
   MACOSX_DEPLOYMENT_TARGET: '10.13'
 on:
   workflow_dispatch:
-  repository_dispatch:
-    types: [publish-clirs]
+  push:
+    branches: [ master, dev ]
 
 jobs:
   build:
@@ -44,7 +44,6 @@ jobs:
       - name: install MacOS dependencies
         if: matrix.config.os == 'macos-latest'
         run: |
-          Software Update
           brew tap homebrew/versions
           brew install protobuf
           brew install gcc7 --use-llvm
