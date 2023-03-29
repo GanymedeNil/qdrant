@@ -79,7 +79,9 @@ jobs:
           path: outputs
 
       - name: Pack archives
-        run: ./tools/pack-cli.sh
+        run: |
+          chmod +x ./tools/pack-cli.sh
+          ./tools/pack-cli.sh
 
       - name: Publish release
         uses: softprops/action-gh-release@50195ba7f6f93d1ac97ba8332a178e008ad176aa
